@@ -10,77 +10,88 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+employeeArray = []
+
+
+function newEmployee() {
+    return inquirer.prompt([
+        {
+            type: "checkbox",
+            name: "role",
+            message: "What is the role of this employee?",
+            choices: [
+                "Intern",
+                "Engineer",
+                "Manager"
+            ]
+        },
+        {
+            type: "input",
+            name: "name",
+            message: "What is the employee's first and last name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the employee's id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the employee's email?"
+        },
+        // Interns only question
+        {
+            type: "input",
+            name: "school",
+            message: "What school is this intern associated with? (press ENTER to skip if n/a)"
+        },
+        // Manager only question 
+        {
+            type: "input",
+            name: "phone",
+            message: "What is this manager's phone number? (press ENTER to skip if n/a)"
+        },
+        // Engineer only question 
+        {
+            type: "input",
+            name: "GitHubUser",
+            message: "What is this Engineer's github username? (press ENTER to skip if n/a)"
+
+        },
+        {
+            type: "checkbox",
+            message: "Would you like to add another team member?",
+            name: "newMember",
+            choices: [
+                "yes",
+                "no"
+            ]
+        }
+    ]
+    );
+}
+
+
+
+async function mainFunction() {
+    try {
+        const response = await newEmployee()
+    }
+    finally {
+        (function (response) {
+            console.log(response)
+        })
+    }
+}
+
+mainFunction()
+
+
+
 
 // Write code to use inquirer to gather information about the development team members,
-async function newEmployee() {
-    const userData = await function userInput() {
-        return inquirer.prompt([
-            {
-                type: "checkbox",
-                name: "role",
-                message: "What is the role of this employee?",
-                choices: [
-                    "Intern",
-                    "Engineer",
-                    "Manager"
-                ]
-            },
-            [
-                {
-                    type: "input",
-                    name: "name",
-                    message: "What is the employee's first and last name?"
-                }
-            ],
-            {
-                type: "input",
-                name: "id",
-                message: "What is the employee's id?"
-            },
-            {
-                type: "input",
-                name: "email",
-                message: "What is the employee's email?"
-            },
-            // Interns only question
-            {
-                type: "input",
-                name: "school",
-                message: "What school is this intern associated with?"
-            },
-            // Manager only question 
-            {
-                type: "input",
-                name: "phone",
-                message: "What is this manager's phone number?"
-            },
-            // Engineer only question 
-            {
-                type: "input",
-                name: "GitHubUser",
-                message: "What is this Engineer's github username?"
-
-            },
-            {
-                type:"confirm",
-                message: "Would you like to add another team member?", 
-                name: "new-member"
-            }
-
-        ]
-        );
-    }
-}
-
 // and to create objects for each team member (using the correct classes as blueprints!)
-class employee {
-    constructor(role, name, email, id) {
-        this.role = role;
-        this.name = name;
-        this.email = email;
-        this.id = id;
-    }
-}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
