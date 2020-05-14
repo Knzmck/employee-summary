@@ -10,69 +10,75 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-questions[
-    {
-        type: "checkbox",
-        name: "role",
-        message: "What is the role of this employee?",
-        choices: [
-            "intern",
-            "engineer",
-            "manager"
-        ]
-    },
-    [
-        {
-            type: "input",
-            name: "name",
-            message: "What is the employee's first and last name?"
-        }
-    ],
-    {
-        type: "input",
-        name: "id",
-        message: "What is the employee's id?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is the employee's email?"
-    },
-    // Interns only question
-    {
-        type: "input",
-        name: "school",
-        message: "What school is this intern associated with?"
-    },
-    // Manager only question 
-    {
-        type: "input", 
-        name: "phone", 
-        message: "What is this manager's phone number?"
-    }, 
-    // Engineer only question 
-    {
-        type: "input",
-        name: "GitHubUser",
-        message: "What is this Engineer's github username?"
-
-    }
-
-]
 
 // Write code to use inquirer to gather information about the development team members,
-// async function newEmployee () {
+async function newEmployee() {
+    const userData = await function userInput() {
+        return inquirer.prompt([
+            {
+                type: "checkbox",
+                name: "role",
+                message: "What is the role of this employee?",
+                choices: [
+                    "Intern",
+                    "Engineer",
+                    "Manager"
+                ]
+            },
+            [
+                {
+                    type: "input",
+                    name: "name",
+                    message: "What is the employee's first and last name?"
+                }
+            ],
+            {
+                type: "input",
+                name: "id",
+                message: "What is the employee's id?"
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "What is the employee's email?"
+            },
+            // Interns only question
+            {
+                type: "input",
+                name: "school",
+                message: "What school is this intern associated with?"
+            },
+            // Manager only question 
+            {
+                type: "input",
+                name: "phone",
+                message: "What is this manager's phone number?"
+            },
+            // Engineer only question 
+            {
+                type: "input",
+                name: "GitHubUser",
+                message: "What is this Engineer's github username?"
 
-// }
+            },
+            {
+                type:"confirm",
+                message: "Would you like to add another team member?", 
+                name: "new-member"
+            }
+
+        ]
+        );
+    }
+}
 
 // and to create objects for each team member (using the correct classes as blueprints!)
 class employee {
-    constructor(role, name, id, email, github) {
+    constructor(role, name, email, id) {
         this.role = role;
         this.name = name;
-        this.id = id;
         this.email = email;
-        this.github = github;
+        this.id = id;
     }
 }
 
