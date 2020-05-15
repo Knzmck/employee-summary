@@ -12,7 +12,6 @@ const render = require("./lib/htmlRenderer");
 
 employeeArray = []
 
-
 function newEmployee() {
     return inquirer.prompt([
         {
@@ -76,12 +75,27 @@ function newEmployee() {
 
 async function mainFunction() {
     try {
-        const response = await newEmployee()
+        let response;
+        employeeArray.push(employee);
+
+    do{
+        response = await newEmployee();
+        let employee;
+        if (response.role ==="Manager") {
+            employee = new Manager(response.role, response.name, response.id, response.email, response.phone)
+        }
+        else if (response.role === "Engineer") {
+            employee = new Manager(response.role, response.name, response.id, response.email, response.GitHubUser)
+        }
+        else {
+            employee = new Intern(response.role, response.name, response.id, response.email, response.school)
+        }
     }
-    finally {
-        (function (response) {
-            console.log(response)
-        })
+        
+    } while (response.newMember == true) {
+        // repeat loop until false 
+    } finally {
+        console.log(employeeArray)
     }
 }
 
@@ -89,6 +103,10 @@ mainFunction()
 
 
 
+// Push info to an array
+// if newMember == true -> run again if not move on
+// If engineer, manager, intern -> use appropriate class ect..
+// render html
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
