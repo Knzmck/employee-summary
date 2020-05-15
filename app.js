@@ -10,20 +10,78 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-employeeArray = []
+let employeeArray = []
+let firstEmployee = true;
+let createTeam = true;
 
 function newEmployee() {
+    console.log("new employee is running")
     return inquirer.prompt([
         {
-            type: "checkbox",
+            type: "list",
             name: "role",
-            message: "What is the role of this employee?",
+            message: "What is the role of this employee?", 
             choices: [
                 "Intern",
                 "Engineer",
                 "Manager"
             ]
-        },
+        } 
+        // {
+        //     type: "input",
+        //     name: "name",
+        //     message: "What is the employee's first and last name?"
+        // },
+        // {
+        //     type: "input",
+        //     name: "id",
+        //     message: "What is the employee's id?"
+        // },
+        // {
+        //     type: "input",
+        //     name: "email",
+        //     message: "What is the employee's email?"
+        // },
+        // // Interns only question
+        // {
+        //     type: "input",
+        //     name: "school",
+        //     message: "What school is this intern associated with? (press ENTER to skip if n/a)"
+        // },
+        // // Manager only question 
+        // {
+        //     type: "input",
+        //     name: "phone",
+        //     message: "What is this manager's phone number? (press ENTER to skip if n/a)"
+        // },
+        // // Engineer only question 
+        // {
+        //     type: "input",
+        //     name: "GitHubUser",
+        //     message: "What is this Engineer's github username? (press ENTER to skip if n/a)"
+
+        // },
+        // 
+    ]
+    ).then(function (response) {
+        console.log(response.role)
+        switch (response.role) {
+            case "Manager":
+                console.log("creating a manager")
+                return createManager()
+            // case "Engineer":
+            //     return createEngineer()
+            // case "Intern": 
+            //     return createIntern()
+
+            default:
+                break;
+        }
+    })
+}
+
+function createManager() {
+    return inquirer.prompt([
         {
             type: "input",
             name: "name",
@@ -39,69 +97,57 @@ function newEmployee() {
             name: "email",
             message: "What is the employee's email?"
         },
-        // Interns only question
-        {
-            type: "input",
-            name: "school",
-            message: "What school is this intern associated with? (press ENTER to skip if n/a)"
-        },
-        // Manager only question 
         {
             type: "input",
             name: "phone",
-            message: "What is this manager's phone number? (press ENTER to skip if n/a)"
-        },
-        // Engineer only question 
-        {
-            type: "input",
-            name: "GitHubUser",
-            message: "What is this Engineer's github username? (press ENTER to skip if n/a)"
-
-        },
-        {
-            type: "checkbox",
-            message: "Would you like to add another team member?",
-            name: "newMember",
-            choices: [
-                "yes",
-                "no"
-            ]
+            message: "What is this manager's phone number?"
         }
-    ]
-    );
+    ]).then(function (response) {
+        employee = new Manager(response.role, response.name, response.id, response.email, response.phone)
+        employeeArray.push(employee);
+    })
 }
 
 
 
 async function mainFunction() {
-    try {
-        let response;
-        employeeArray.push(employee);
-
-    do{
-        response = await newEmployee();
-        let employee;
-        if (response.role ==="Manager") {
-            employee = new Manager(response.role, response.name, response.id, response.email, response.phone)
-        }
-        else if (response.role === "Engineer") {
-            employee = new Manager(response.role, response.name, response.id, response.email, response.GitHubUser)
+    while (createTeam == true) {
+        if (firstEmployee == true) {
+            await createManager()
+            firstEmployee = false;
         }
         else {
-            employee = new Intern(response.role, response.name, response.id, response.email, response.school)
+            await inquirer.prompt([
+                {
+                    type: "list",
+                    message: "Would you like to add another team member?",
+                    name: "newMember",
+                    choices: [
+                        "yes",
+                        "no"
+                    ]
+                }
+            ]).then ( async function(res) {
+                if (res.newMember == "yes") {
+                    await newEmployee()
+                }
+                else {
+                    createTeam = false
+                }
+            })
         }
+    
     }
-        
-    } while (response.newMember == true) {
-        // repeat loop until false 
-    } finally {
-        console.log(employeeArray)
-    }
+    console.log(employeeArray)
 }
 
 mainFunction()
 
+// let response;
+// employeeArray.push(employee);
 
+// response = await newEmployee();
+// let employee;
 
 // Push info to an array
 // if newMember == true -> run again if not move on
@@ -130,3 +176,14 @@ mainFunction()
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+// if (response.role ==="Manager") {
+//     employee = new Manager(response.role, response.name, response.id, response.email, response.phone)
+// }
+// else if (response.role === "Engineer") {
+//     employee = new Engineer(response.role, response.name, response.id, response.email, response.GitHubUser)
+// }
+// else {
+//     employee = new Intern(response.role, response.name, response.id, response.email, response.school)
+// }
