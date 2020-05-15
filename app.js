@@ -20,13 +20,13 @@ function newEmployee() {
         {
             type: "list",
             name: "role",
-            message: "What is the role of this employee?", 
+            message: "What is the role of this employee?",
             choices: [
                 "Intern",
                 "Engineer",
                 "Manager"
             ]
-        } 
+        }
         // {
         //     type: "input",
         //     name: "name",
@@ -103,7 +103,7 @@ function createManager() {
             message: "What is this manager's phone number?"
         }
     ]).then(function (response) {
-        employee = new Manager(response.role, response.name, response.id, response.email, response.phone)
+        employee = new Manager(response.name, response.email, response.id, response.phone)
         employeeArray.push(employee);
     })
 }
@@ -127,7 +127,7 @@ async function mainFunction() {
                         "no"
                     ]
                 }
-            ]).then ( async function(res) {
+            ]).then(async function (res) {
                 if (res.newMember == "yes") {
                     await newEmployee()
                 }
@@ -136,9 +136,18 @@ async function mainFunction() {
                 }
             })
         }
-    
+
+    }
+    const html = render(employeeArray);
+
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR);
     }
     console.log(employeeArray)
+    fs.writeFile(outputPath, html, function (err) {
+        if (err) throw err;
+        console.log("success!")
+    })
 }
 
 mainFunction()
