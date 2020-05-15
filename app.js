@@ -102,6 +102,33 @@ function createEngineer() {
     })
 }
 function createIntern() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the employee's first and last name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the employee's id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the employee's email?"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "What school does this intern attend?"
+        }
+
+]).then(function(response){
+    employee = new Intern(response.name, response.id, response.email, response.school);
+    employeeArray.push(employee)
+})
+
 }
 async function mainFunction() {
     while (createTeam == true) {
