@@ -36,7 +36,7 @@ function newEmployee() {
                 return createManager()
             case "Engineer":
                 return createEngineer()
-            case "Intern": 
+            case "Intern":
                 return createIntern()
 
             default:
@@ -50,7 +50,7 @@ function createManager() {
         {
             type: "input",
             name: "name",
-            message: "What is the employee's first and last name?"
+            message: "What is the manager's first and last name?"
         },
         {
             type: "input",
@@ -75,28 +75,28 @@ function createManager() {
 
 function createEngineer() {
     return inquirer.prompt([
-            {
-                type: "input",
-                name: "name",
-                message: "What is the employee's first and last name?"
-            },
-            {
-                type: "input",
-                name: "id",
-                message: "What is the employee's id?"
-            },
-            {
-                type: "input",
-                name: "email",
-                message: "What is the employee's email?"
-            },
-            {
-                type: "input",
-                name: "github",
-                message: "What is the employee's github username?"
-            }
-    
-    ]).then(function(response){
+        {
+            type: "input",
+            name: "name",
+            message: "What is the employee's first and last name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the employee's id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the employee's email?"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is the employee's github username?"
+        }
+
+    ]).then(function (response) {
         employee = new Engineer(response.name, response.id, response.email, response.github);
         employeeArray.push(employee)
     })
@@ -124,19 +124,23 @@ function createIntern() {
             message: "What school does this intern attend?"
         }
 
-]).then(function(response){
-    employee = new Intern(response.name, response.id, response.email, response.school);
-    employeeArray.push(employee)
-})
+    ]).then(function (response) {
+        employee = new Intern(response.name, response.id, response.email, response.school);
+        employeeArray.push(employee)
+    })
 
 }
 async function mainFunction() {
+    // Conditions to create team
     while (createTeam == true) {
         if (firstEmployee == true) {
+            // Creates first manager
             await createManager()
+            // Sets first employee to false to give the option to add other types of employees later on
             firstEmployee = false;
         }
         else {
+            // Asks if you want to add more team members
             await inquirer.prompt([
                 {
                     type: "list",
@@ -148,6 +152,7 @@ async function mainFunction() {
                     ]
                 }
             ]).then(async function (res) {
+                // If yes, loops through process until user says no
                 if (res.newMember == "yes") {
                     await newEmployee()
                 }
@@ -158,62 +163,19 @@ async function mainFunction() {
         }
 
     }
+    // Stores array values in html
     const html = render(employeeArray);
-
+    // Check to see if directory exists
     if (!fs.existsSync(OUTPUT_DIR)) {
+        // Makes a directory if it does not exist
         fs.mkdirSync(OUTPUT_DIR);
     }
-    console.log(employeeArray)
+    // Writes data to file and creates team.html where data will appear
     fs.writeFile(outputPath, html, function (err) {
         if (err) throw err;
-        console.log("success!")
+        console.log("successfully created team!")
     })
 }
 
+// Calls Main Function to run 
 mainFunction()
-
-       // {
-        //     type: "input",
-        //     name: "name",
-        //     message: "What is the employee's first and last name?"
-        // },
-        // {
-        //     type: "input",
-        //     name: "id",
-        //     message: "What is the employee's id?"
-        // },
-        // {
-        //     type: "input",
-        //     name: "email",
-        //     message: "What is the employee's email?"
-        // },
-        // // Interns only question
-        // {
-        //     type: "input",
-        //     name: "school",
-        //     message: "What school is this intern associated with? (press ENTER to skip if n/a)"
-        // },
-        // // Manager only question 
-        // {
-        //     type: "input",
-        //     name: "phone",
-        //     message: "What is this manager's phone number? (press ENTER to skip if n/a)"
-        // },
-        // // Engineer only question 
-        // {
-        //     type: "input",
-        //     name: "GitHubUser",
-        //     message: "What is this Engineer's github username? (press ENTER to skip if n/a)"
-
-        // },
-        // 
-
-// if (response.role ==="Manager") {
-//     employee = new Manager(response.role, response.name, response.id, response.email, response.phone)
-// }
-// else if (response.role === "Engineer") {
-//     employee = new Engineer(response.role, response.name, response.id, response.email, response.GitHubUser)
-// }
-// else {
-//     employee = new Intern(response.role, response.name, response.id, response.email, response.school)
-// }
