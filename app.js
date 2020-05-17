@@ -15,7 +15,6 @@ let firstEmployee = true;
 let createTeam = true;
 
 function newEmployee() {
-    console.log("new employee is running")
     return inquirer.prompt([
         {
             type: "list",
@@ -29,10 +28,8 @@ function newEmployee() {
         }
     ]
     ).then(function (response) {
-        console.log(response.role)
         switch (response.role) {
             case "Manager":
-                console.log("creating a manager")
                 return createManager()
             case "Engineer":
                 return createEngineer()
@@ -173,7 +170,7 @@ async function mainFunction() {
     // Writes data to file and creates team.html where data will appear
     fs.writeFile(outputPath, html, function (err) {
         if (err) throw err;
-        console.log("successfully created team!")
+        console.log("Successfully created team directory!")
     })
 }
 
