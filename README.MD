@@ -1,58 +1,44 @@
-#  Employee Directory Generator  
+# Employee Directory Generator
 
-   ## Table of Contents  
-   * About  
-   * Installation   
-   * Usage    
-   * Contributing 
-   * Tests 
-   * Demo  
-   * Developer  
-   * Questions  
-   
-   ## About   
+## Table of Contents
+
+- [About](#About)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Tests](#tests)
+- [Demo](#demo)
+- [Developer](#developer)
+
+## About
 
 When dealing with software development, your team may want to generate a webpage that displays my team's basic info
-so that I have quick access to each employee's name, role, email, contact info, github profile, ect.  
+so that I have quick access to each employee's name, role, email, contact info, github profile, ect.
 
-This software uses node to generate a series of questions for the user to create contact cards for each employee which generate on an HTML page called team.HTML  
+This software uses node to generate a series of questions for the user to create contact cards for each employee which generate on an HTML page called team.HTML
 
-   ## Installation   
+## Installation
 
-   This software requires npm installation as well as visual studio code or a similar program.   
+This software requires npm installation as well as visual studio code or a similar program.
 
-   ## Usage  
+## Usage
 
-   To use this software you need visual studio code (or a similar program), NPM and a github account.  
-    Once NPM files are installed with your code, run node index.js on the command bar. You will be prompted with a series of questions about the content of your team.HTML. Once you've answered all of the questions the HTML file will automatically generate which you can use for any team project.   
+To use this software you need visual studio code (or a similar program), NPM and a github account.  
+ Once NPM files are installed with your code, run node index.js on the command bar. You will be prompted with a series of questions about the content of your team.HTML. Once you've answered all of the questions the HTML file will automatically generate which you can use for any team project.
 
- 
-   ## Contributing  
+## Tests
 
-   Mackenzie Schutz  
+TDD and jest were used to build this software. Tests can be found in the test directory.
 
+## Demo
 
-   ## Tests  
+[Server Side Demo](https://youtu.be/WuKnegrWKgI)
 
-   TDD and jest were used to build this software. Tests can be found in the test directory.  
+  <img src="./Capture.PNG">
 
-   ## Demo  
+## Developer
 
-   https://youtu.be/WuKnegrWKgI  
-
-   ## Developer  
-
-   <div class="CircleBadge CircleBadge--medium bg-gray-dark">
    <img src="https://avatars.githubusercontent.com/Knzmck" height="90" width="90">   
-   </div>  
-   Knzmck  
+ 
+   Mackenzie Schutz <a href="https://github.com/knzmck" target="_blank">@Knzmck</a>
 
-   ## Questions  
-
-   Please direct all questions the developer to github user Knzmck.   
-
-
-   [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)  
-
-
-   
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
